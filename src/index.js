@@ -3,6 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import * as firebase from 'firebase';
+
+var config = {
+   apiKey: "AIzaSyDravQqWlKvZLPhbGjnVa8Gj_qyga7M-Hs",
+   authDomain: "bloc-chat-react-6bf62.firebaseapp.com",
+   databaseURL: "https://bloc-chat-react-6bf62.firebaseio.com",
+   projectId: "bloc-chat-react-6bf62",
+   storageBucket: "bloc-chat-react-6bf62.appspot.com",
+   messagingSenderId: "892660646417"
+ };
+ firebase.initializeApp(config);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
