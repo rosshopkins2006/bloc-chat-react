@@ -32,7 +32,7 @@ this.roomsRef.on('child_added', snapshot => {
 
 const displayRooms = this.state.rooms.map(name => {
   return (
-    <li>{name.name}</li>
+    <li key={name.name.toString()}>{name.name}</li>
   )
 })
 
