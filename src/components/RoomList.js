@@ -30,7 +30,7 @@ this.roomsRef.on('child_added', snapshot => {
 
   render() {
 
-const numbers = this.state.rooms.map(name => {
+const displayRooms = this.state.rooms.map(name => {
   return (
     <li>{name.name}</li>
   )
@@ -39,7 +39,7 @@ const numbers = this.state.rooms.map(name => {
       return(
         <div>
           <ul>
-            {numbers}
+            {displayRooms}
           </ul>
         </div>
     )
