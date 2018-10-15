@@ -6,15 +6,10 @@ class RoomList extends Component {
     super(props);
       this.state = {
         rooms: [],
-        stations : [
-          {call: 'station one', frequency: '000'},
-          {call: 'station two', frequency: '001'}
-        ]
       };
 
       this.roomsRef = firebase.database().ref().child('rooms');
-      this.theRooms = [];
-      this.stationArr = [];
+      this.addRoom = firebase.database().ref().child('rooms').child('4').push('room4');
 
     }
 
@@ -24,24 +19,31 @@ this.roomsRef.on('child_added', snapshot => {
   const room = snapshot.val();
   room.key = snapshot.key;
   this.setState({ rooms: this.state.rooms.concat( room ) })
-});
+  });
+}
 
+addRooms() {
+  return (
+    this.addRoom
+  )
 }
 
   render() {
 
-const displayRooms = this.state.rooms.map(name => {
+const displayRooms = this.state.rooms.map((name, index) => {
   return (
-    <li key={name.name.toString()}>{name.name}</li>
+    <li key={index}>{name.name}</li>
   )
 })
 
-      return(
+  return(
+    <section>
         <div>
           <ul>
             {displayRooms}
           </ul>
         </div>
+      </section>
     )
   }
 
