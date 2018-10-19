@@ -24,7 +24,7 @@ this.roomsRef.on('child_added', snapshot => {
 }
 
 addRooms() {
-  console.log("cloinked");
+  console.log("click");
 }
 
   render() {
