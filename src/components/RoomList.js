@@ -24,8 +24,7 @@ this.roomsRef.on('child_added', snapshot => {
 }
 
 addRooms() {
-const numVar = this.testNum + 1;
-return this.testNum;
+  console.log("cloinked");
 }
 
   render() {
