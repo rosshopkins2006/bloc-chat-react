@@ -1,31 +1,28 @@
 import React, { Component } from 'react';
-import RoomList from './components/RoomList';
+import RoomList from "./components/RoomList";
 import './App.css';
+import * as firebase from 'firebase';
+
+var config = {
+  apiKey: "AIzaSyC9bW7syVO4ZEKu0vweYTPCKwWMEZEMafI",
+  authDomain: "bloc-chat-react-d52a0.firebaseapp.com",
+  databaseURL: "https://bloc-chat-react-d52a0.firebaseio.com",
+  projectId: "bloc-chat-react-d52a0",
+  storageBucket: "bloc-chat-react-d52a0.appspot.com",
+  messagingSenderId: "164935147836"
+};
+firebase.initializeApp(config);
 
 class App extends Component {
-
-  constructor (props){
-    super(props);
-      this.states = {
-        ClickedState: ""
-      }
-  }
-
-clicked () {
-  this.SetState({ ClickedState: "Clicked" });
-  console.log("You clicked");
-}
   render() {
+
     return (
-      <div className="App">
-        <h1>Bloc Chat</h1>
-        <RoomList/>
-        <div>
-          <button onClick={this.clicked}>click me</button>
-          {this.ClickedState}
+      <div className="App-Container">
+        <div className="App">
+          <RoomList/>
         </div>
       </div>
-    );
+    )
   }
 }
 

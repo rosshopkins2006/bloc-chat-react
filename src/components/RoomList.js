@@ -1,55 +1,24 @@
 import React, { Component } from 'react';
-import * as firebase from 'firebase';
+
 
 class RoomList extends Component {
-
-constructor(props) {
+  constructor(props) {
     super(props);
-      this.state = {
-        rooms: [],
-        testState: 0
-      };
+    this.state = {
+      rooms: []
+    };
 
-      this.roomsRef = firebase.database().ref().child('rooms');
-      this.testNum = 0;
-    }
-
-componentDidMount() {
-
-this.roomsRef.on('child_added', snapshot => {
-  const room = snapshot.val();
-  room.key = snapshot.key;
-  this.setState({ rooms: this.state.rooms.concat( room ) });
-  });
-}
-
-addRooms() {
-  console.log("click");
-}
+    this.roomsRef = this.props.firebase.database().ref('rooms'); //this is where I first grab the firebase array
+  }
 
   render() {
 
-const displayRooms = this.state.rooms.map((name, index) => {
-  return (
-    <li key={index}>{name.name}</li>
-  )
-})
-
-  return(
-    <section>
-        <div>
-          <ul>
-            {this.state.testState}
-            {displayRooms}
-          </ul>
+    return (
+      <div className="RoomList-Container">
+        <div className="RoomList">
         </div>
-        <div className="addRoom-container">
-          <button className="addRoom-button" onClick={this.addRooms}>{this.testNum}</button>
-        </div>
-      </section>
+      </div>
     )
   }
-
 }
-
 export default RoomList;
