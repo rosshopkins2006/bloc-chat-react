@@ -11,7 +11,6 @@ class RoomList extends Component {
       };
 
       this.roomsRef = firebase.database().ref().child('rooms');
-      this.roomCount = 1;
     }
 
 componentDidMount() {
