@@ -6,8 +6,10 @@ class RoomList extends Component {
   constructor(props) {
     super(props);
       this.state = {
+        keys: [],
         rooms: [],
-        title: ''
+        title: '',
+        activeRoom: ''
       };
 
       this.roomsRef = firebase.database().ref().child('rooms');
@@ -17,20 +19,24 @@ componentDidMount() {
   this.roomsRef.on('child_added', snapshot => {
   const room = snapshot.val();
   room.key = snapshot.key;
+  this.setState({ keys: this.state.keys.concat( room.key ) })
   this.setState({ rooms: this.state.rooms.concat( room ) })
   });
 }
 
 handleSubmit(e) {
-  const firebaseRef = firebase.database().ref('rooms');
   e.preventDefault(); //stops page from rerendering
   firebase.database().ref().child('rooms').push({ name: this.state.title });
   this.roomCount++;
-  this.setState({ title: '' });
+  this.setState({ title: ''});
 }
 
 handleChange(e) {
   this.setState({ title: e.target.value })
+}
+
+activeRoom(index) {
+  this.setState({ activeRoom: this.state.keys[index]})
 }
 
 componentWillUnmount() {
@@ -43,7 +49,7 @@ componentWillUnmount() {
 
 const displayRooms = this.state.rooms.map((name, index) => {
   return (
-    <li key={index}>{name.name}</li>
+    <li key={index}> <button onClick={ () => this.activeRoom(index) }>{name.name}</button></li>
   )
 })
 
@@ -51,6 +57,7 @@ const displayRooms = this.state.rooms.map((name, index) => {
     <section>
         <div>
           <div className="Rooms-Container">
+          <div>{this.state.activeRoom}</div>
             <ul>
               {displayRooms}
             </ul>

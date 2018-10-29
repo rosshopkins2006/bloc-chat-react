@@ -30,3 +30,32 @@
     transform: rotate(360deg);
   }
 }
+
+.App-Container {
+  display: flex;
+  right: auto;
+  width: 100%;
+  margin-right: auto;
+  box-shadow: 1px 1px 5px Black;
+  background-color: LightGrey;
+  padding: 50 px;
+}
+
+.Rooms-Container {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  box-shadow: 1px 1px 5px Black;
+  background-color: Grey;
+  padding: 50 px;
+}
+
+.Message-Container {
+  display: flex;
+  right: auto;
+  width: 100%;
+  margin-right: auto;
+  box-shadow: 1px 1px 5px Black;
+  background-color: PowderBlue;
+  padding: 50 px;
+}
