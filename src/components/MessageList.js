@@ -7,7 +7,6 @@ class MessageList extends Component {
   constructor(props) {
     super(props);
       this.state = {
-        keys: [],
         messages: [],
         message: '',
         roomKey: '',
@@ -17,15 +16,14 @@ class MessageList extends Component {
         roomID: '-LPxNkQ_D8m8OWiPSqNW'
       };
 
-      this.messagesRef = firebase.database().ref().child('messages');
+      this.messagesRef = this.props.firebaseRef.child('messages');
     }
 
 componentDidMount() {
   this.messagesRef.on('child_added', snapshot => {
   const messageConst = snapshot.val();
   messageConst.key = snapshot.key;
-  this.setState({ keys: this.state.keys.concat( messageConst.key ) })
-  this.setState({ messagess: this.state.messages.concat( messageConst ) })
+  this.setState({ messages: this.state.messages.concat( messageConst ) })
   });
 }
 
@@ -54,9 +52,12 @@ componentWillUnmount() {
 
   render() {
 
-    const displayMessages = this.state.messages.map((name, index) => {
+    const displayMessages = this.state.messages.map((message, index) => {
       return (
-        <li key={index}>{name.name}</li>
+        <li key={index}>
+        {message.content}
+        <p>- {message.username}</p>
+        </li>
       )
     })
 

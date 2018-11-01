@@ -12,7 +12,7 @@ class RoomList extends Component {
         activeRoom: ''
       };
 
-      this.roomsRef = firebase.database().ref().child('rooms');
+      this.roomsRef = this.props.firebaseRef.child('rooms');
     }
 
 componentDidMount() {
@@ -36,6 +36,8 @@ handleChange(e) {
 }
 
 activeRoom(index) {
+  this.props.sendKey({ roomKey: this.state.keys[index]})
+  this.props.sendName({ roomName: this.state.rooms[index].name })
   this.setState({ activeRoom: this.state.keys[index]})
 }
 
@@ -57,7 +59,6 @@ const displayRooms = this.state.rooms.map((name, index) => {
     <section>
         <div>
           <div className="Rooms-Container">
-          <div>{this.state.activeRoom}</div>
             <ul>
               {displayRooms}
             </ul>
