@@ -58,7 +58,7 @@ componentWillUnmount() {
             <li key={index}>
             {message.content}
             <p>- {message.username}</p>
-            <p>{message.roomID}</p>
+
             </li>
           )
         }
