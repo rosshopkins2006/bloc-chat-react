@@ -9,11 +9,10 @@ class MessageList extends Component {
       this.state = {
         messages: [],
         message: '',
-        roomKey: '',
         username: 'jen',
         content: '',
-        sentAt: '2025',
-        roomID: '-LPxNkQ_D8m8OWiPSqNW'
+        sentAt: '',
+        roomID: ''
       };
 
       this.messagesRef = this.props.firebaseRef.child('messages');
@@ -32,12 +31,12 @@ handleSubmit(e) {
   this.setState({ username: 'jen', });
   this.setState({ content: this.state.message, });
   this.setState({ sentAt: '2025', });
-  this.setState({ roomID: '-LPxNkQ_D8m8OWiPSqNW' });
+  this.setState({ roomID: this.props.sendKey });
   firebase.database().ref().child('messages').push({
             username: 'jen',
             content: this.state.message,
-            sentAt: '2025',
-            roomID: '-LPxNkQ_D8m8OWiPSqNW'
+            sentAt: firebase.database.ServerValue.TIMESTAMP,
+            roomID: this.props.sendKey
           });
   e.preventDefault(); //stops page from rerendering
 }
@@ -53,18 +52,22 @@ componentWillUnmount() {
   render() {
 
     const displayMessages = this.state.messages.map((message, index) => {
-      return (
-        <li key={index}>
-        {message.content}
-        <p>- {message.username}</p>
-        </li>
-      )
+      if(message.roomID === this.props.sendKey)
+        {
+          return (
+            <li key={index}>
+            {message.content}
+            <p>- {message.username}</p>
+            <p>{message.roomID}</p>
+            </li>
+          )
+        }
     })
 
   return(
     <section>
         <div>
-        <div>{this.state.roomKey}</div>
+
           <div className="Message-Container">
             <ul>
             {displayMessages}

@@ -9,39 +9,39 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentRoom: '',
-      currentRoomName: ''
+      sendKeyState: 'no key given',
+      currentRoomName: 'No room selected'
     }
 
     this.firebaseRef = firebase.database().ref();
     this.room = this.room;
   }
 
-getKey(val){
-  const keyObj = val;
-  const key = keyObj.roomKey;
-  console.log(key);
-}
-
 getName(val){
   const roomObj = val;
   const room = roomObj.roomName;
-  console.log(room);
+  const key = roomObj.roomKey;
+
+  this.setState({ sendKeyState: key });
   this.setState({ currentRoomName: room });
+
 }
 
   render() {
+
+
     return (
       <div className="App">
-
         <h1>Bloc Chat</h1>
-
+        <h6>Current Room</h6>
+        <h2>{this.state.currentRoomName}</h2>
+        <h6>{this.state.currentRoomKey}</h6>
         <div className="App-Container">
           <RoomList
-            sendKey={this.getKey}
-            sendName={this.getName}
+            sendRoom={this.getName.bind(this)}
             firebaseRef = {this.firebaseRef}/>
           <MessageList
+          sendKey={this.state.sendKeyState}
           firebaseRef = {this.firebaseRef}
           />
         </div>

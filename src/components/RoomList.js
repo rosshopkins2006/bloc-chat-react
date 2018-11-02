@@ -36,9 +36,9 @@ handleChange(e) {
 }
 
 activeRoom(index) {
-  this.props.sendKey({ roomKey: this.state.keys[index]})
-  this.props.sendName({ roomName: this.state.rooms[index].name })
-  this.setState({ activeRoom: this.state.keys[index]})
+
+  this.props.sendRoom({ roomName: this.state.rooms[index].name,
+                        roomKey: this.state.keys[index]})
 }
 
 componentWillUnmount() {
@@ -46,8 +46,6 @@ componentWillUnmount() {
 }
 
   render() {
-
-
 
 const displayRooms = this.state.rooms.map((name, index) => {
   return (
