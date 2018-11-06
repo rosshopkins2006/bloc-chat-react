@@ -45,17 +45,17 @@ getName(val){
         <User
           user = {this.state.user}
           setUser = {this.state.setUser}
-          firebaseRef = {this.firebaseRef}
+          firebase = {this.firebaseRef}
           />
 
         <div className="App-Container">
 
           <RoomList
             sendRoom={this.getName.bind(this)}
-            firebaseRef = {this.firebaseRef}/>
+            firebase = {this.firebaseRef}/>
           <MessageList
           sendKey={this.state.sendKeyState}
-          firebaseRef = {this.firebaseRef}
+          firebase = {this.firebaseRef}
           />
         </div>
       </div>

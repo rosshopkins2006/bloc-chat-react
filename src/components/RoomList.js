@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import * as firebase from 'firebase';
+
 
 class RoomList extends Component {
   constructor(props) {
@@ -11,12 +11,10 @@ class RoomList extends Component {
         title: '',
         activeRoom: ''
       };
-
-      this.roomsRef = this.props.firebaseRef.child('rooms');
     }
 
 componentDidMount() {
-  this.roomsRef.on('child_added', snapshot => {
+  this.props.firebase.child('rooms').on('child_added', snapshot => {
   const room = snapshot.val();
   room.key = snapshot.key;
   this.setState({ keys: this.state.keys.concat( room.key ) })
@@ -26,7 +24,7 @@ componentDidMount() {
 
 handleSubmit(e) {
   e.preventDefault(); //stops page from rerendering
-  firebase.database().ref().child('rooms').push({ name: this.state.title });
+  this.props.firebase.child('rooms').push({ name: this.state.title });
   this.roomCount++;
   this.setState({ title: ''});
 }
