@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RoomList from './components/RoomList';
-import MessageList from "./components/MessageList"
+import MessageList from "./components/MessageList";
+import User from "./components/User";
 import * as firebase from 'firebase';
 
 import './App.css';
@@ -10,12 +11,17 @@ class App extends Component {
     super(props);
     this.state = {
       sendKeyState: 'no key given',
-      currentRoomName: 'No room selected'
+      currentRoomName: 'No room selected',
+      user: ''
     }
 
     this.firebaseRef = firebase.database().ref();
     this.room = this.room;
   }
+
+setUser(user){
+ this.setState({ user: user });
+}
 
 getName(val){
   const roomObj = val;
@@ -29,14 +35,21 @@ getName(val){
 
   render() {
 
-
     return (
       <div className="App">
         <h1>Bloc Chat</h1>
         <h6>Current Room</h6>
         <h2>{this.state.currentRoomName}</h2>
         <h6>{this.state.currentRoomKey}</h6>
+
+        <User
+          user = {this.state.user}
+          setUser = {this.state.setUser}
+          firebaseRef = {this.firebaseRef}
+          />
+
         <div className="App-Container">
+
           <RoomList
             sendRoom={this.getName.bind(this)}
             firebaseRef = {this.firebaseRef}/>
@@ -45,7 +58,6 @@ getName(val){
           firebaseRef = {this.firebaseRef}
           />
         </div>
-
       </div>
     );
   }
