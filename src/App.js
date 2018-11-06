@@ -15,12 +15,17 @@ class App extends Component {
       user: ''
     }
 
-    this.firebaseRef = firebase.database().ref();
+    this.firebaseRef = firebase
     this.room = this.room;
   }
 
 setUser(user){
- this.setState({ user: user });
+  try{
+     this.setState({ user: user.displayName });
+  }
+  catch(err){
+     this.setState({ user: "guest"});
+  }
 }
 
 getName(val){
@@ -41,10 +46,10 @@ getName(val){
         <h6>Current Room</h6>
         <h2>{this.state.currentRoomName}</h2>
         <h6>{this.state.currentRoomKey}</h6>
-
+        <h6>{this.state.user}</h6>
         <User
           user = {this.state.user}
-          setUser = {this.state.setUser}
+          setUser = {this.setUser.bind(this)}
           firebase = {this.firebaseRef}
           />
 
@@ -54,6 +59,7 @@ getName(val){
             sendRoom={this.getName.bind(this)}
             firebase = {this.firebaseRef}/>
           <MessageList
+          userName ={this.state.user}
           sendKey={this.state.sendKeyState}
           firebase = {this.firebaseRef}
           />

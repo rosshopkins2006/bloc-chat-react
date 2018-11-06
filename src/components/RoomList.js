@@ -11,10 +11,12 @@ class RoomList extends Component {
         title: '',
         activeRoom: ''
       };
+
+      this.roomListRef= this.props.firebase.database().ref();
     }
 
 componentDidMount() {
-  this.props.firebase.child('rooms').on('child_added', snapshot => {
+  this.roomListRef.child('rooms').on('child_added', snapshot => {
   const room = snapshot.val();
   room.key = snapshot.key;
   this.setState({ keys: this.state.keys.concat( room.key ) })
@@ -24,7 +26,7 @@ componentDidMount() {
 
 handleSubmit(e) {
   e.preventDefault(); //stops page from rerendering
-  this.props.firebase.child('rooms').push({ name: this.state.title });
+  this.roomListRef.child('rooms').push({ name: this.state.title });
   this.roomCount++;
   this.setState({ title: ''});
 }

@@ -15,7 +15,7 @@ class MessageList extends Component {
         roomID: ''
       };
 
-      this.messagesRef = this.props.firebase.child('messages');
+      this.messagesRef = this.props.firebase.database().ref().child('messages');
     }
 
 componentDidMount() {
@@ -28,12 +28,12 @@ componentDidMount() {
 
 handleSubmit(e) {
   this.setState({ message: ''});
-  this.setState({ username: 'jen', });
+  this.setState({ username: this.props.userName });
   this.setState({ content: this.state.message, });
   this.setState({ sentAt: '2025', });
   this.setState({ roomID: this.props.sendKey });
   firebase.database().ref().child('messages').push({
-            username: 'jen',
+            username: this.props.userName,
             content: this.state.message,
             sentAt: firebase.database.ServerValue.TIMESTAMP,
             roomID: this.props.sendKey
