@@ -36,9 +36,18 @@ handleChange(e) {
 }
 
 activeRoom(index) {
-
+  console.log("");
   this.props.sendRoom({ roomName: this.state.rooms[index].name,
                         roomKey: this.state.keys[index]})
+}
+
+deleteRoom(index){
+  if(this.state.sendKeyState != 'no key given'){
+      console.log(this.state.keys[index]);
+  }
+  else{
+    console.log("works?");
+  }
 }
 
 componentWillUnmount() {
@@ -49,7 +58,7 @@ componentWillUnmount() {
 
 const displayRooms = this.state.rooms.map((name, index) => {
   return (
-    <li key={index}> <button onClick={ () => this.activeRoom(index) }>{name.name}</button></li>
+    <li key={index}> <button onClick={ () => this.activeRoom(index) }>{name.name}</button><button className="delete-room" onClick={() => this.deleteRoom(index)}>x</button></li>
   )
 })
 
