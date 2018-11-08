@@ -43,11 +43,9 @@ activeRoom(index) {
 
 deleteRoom(index){
   if(this.state.sendKeyState != 'no key given'){
-      console.log(this.state.keys[index]);
+    this.roomListRef.child('rooms').child(this.state.keys[index]).remove();
   }
-  else{
-    console.log("works?");
-  }
+  return;
 }
 
 componentWillUnmount() {
