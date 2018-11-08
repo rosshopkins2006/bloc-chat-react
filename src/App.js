@@ -45,6 +45,7 @@ getName(val){
         <h1>Bloc Chat</h1>
         <h6>Current Room</h6>
         <h2>{this.state.currentRoomName}</h2>
+        <button className="delete-Room">Delete Current Room</button>
         <h6>{this.state.currentRoomKey}</h6>
         <h6>{this.state.user}</h6>
         <User
