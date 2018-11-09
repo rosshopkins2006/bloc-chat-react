@@ -56,7 +56,11 @@ componentWillUnmount() {
 
 const displayRooms = this.state.rooms.map((name, index) => {
   return (
-    <li key={index}> <button onClick={ () => this.activeRoom(index) }>{name.name}</button><button className="delete-room" onClick={() => this.deleteRoom(index)}>x</button></li>
+    <li key={index}>
+      <button onClick={ () => this.activeRoom(index) }>{name.name}</button>
+      <button className="delete-room" onClick={() => this.deleteRoom(index)}>x</button>
+      <button className="edit-room">edit</button>
+    </li>
   )
 })
 
