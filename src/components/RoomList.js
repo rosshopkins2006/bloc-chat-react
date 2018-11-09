@@ -13,6 +13,7 @@ class RoomList extends Component {
       };
 
       this.roomListRef= this.props.firebase.database().ref();
+      this.editToggle = true;
     }
 
 componentDidMount() {
@@ -49,6 +50,7 @@ deleteRoom(index){
 }
 
 editRoom(index){
+    this.editToggle = !this.editToggle;
   console.log(this.state.rooms[index].name);
 }
 
@@ -56,12 +58,33 @@ componentWillUnmount() {
   this.firebaseRef.off();
 }
 
+toggleRoomDisplay(e){
+
+}
+
+displayEdit(name, form){
+  if(this.editToggle==true)
+  {
+    return(form);
+  }
+  else
+  {
+    return(name);
+  }
+}
+
   render() {
+
+const form =
+  <form className="NewTodoForm" onSubmit={ (e) => this.handleSubmit(e) }>
+    <input type="text" value={this.state.title}  onChange={ (e) => this.handleChange(e) } />
+    <input type="submit"/>
+  </form>
 
 const displayRooms = this.state.rooms.map((name, index) => {
   return (
     <li key={index}>
-      <button onClick={ () => this.activeRoom(index) }>{name.name}</button>
+      <button onClick={ () => this.activeRoom(index) }>{this.displayEdit(name.name , form)}</button>
       <button className="delete-room" onClick={() => this.deleteRoom(index)}>x</button>
       <button className="edit-room" onClick={() => this.editRoom(index)}>edit</button>
     </li>
