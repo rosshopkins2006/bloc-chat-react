@@ -13,7 +13,8 @@ class RoomList extends Component {
       };
 
       this.roomListRef= this.props.firebase.database().ref();
-      this.editToggle = true;
+      this.editToggle = false;
+      this.roomState = '';
     }
 
 componentDidMount() {
@@ -49,8 +50,18 @@ deleteRoom(index){
   window.location.reload();
 }
 
-editRoom(index){
+editRoom(index, name, form){
     this.editToggle = !this.editToggle;
+
+    if(this.editToggle==true)
+    {
+      this.roomstate = form;
+    }
+    else
+    {
+      this.roomstate = name;
+    }
+
   console.log(this.state.rooms[index].name);
 }
 
@@ -86,7 +97,7 @@ const displayRooms = this.state.rooms.map((name, index) => {
     <li key={index}>
       <button onClick={ () => this.activeRoom(index) }>{this.displayEdit(name.name , form)}</button>
       <button className="delete-room" onClick={() => this.deleteRoom(index)}>x</button>
-      <button className="edit-room" onClick={() => this.editRoom(index)}>edit</button>
+      <button className="edit-room" onClick={() => this.editRoom(index, name.name, form)}>edit</button>
     </li>
   )
 })
