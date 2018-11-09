@@ -48,6 +48,10 @@ deleteRoom(index){
   window.location.reload();
 }
 
+editRoom(index){
+  console.log(this.state.rooms[index].name);
+}
+
 componentWillUnmount() {
   this.firebaseRef.off();
 }
@@ -59,7 +63,7 @@ const displayRooms = this.state.rooms.map((name, index) => {
     <li key={index}>
       <button onClick={ () => this.activeRoom(index) }>{name.name}</button>
       <button className="delete-room" onClick={() => this.deleteRoom(index)}>x</button>
-      <button className="edit-room">edit</button>
+      <button className="edit-room" onClick={() => this.editRoom(index)}>edit</button>
     </li>
   )
 })
