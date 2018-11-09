@@ -29,7 +29,12 @@ componentDidMount() {
 handleSubmit(e) {
   e.preventDefault(); //stops page from rerendering
   this.roomListRef.child('rooms').push({ name: this.state.title });
-  this.roomCount++;
+  this.setState({ title: ''});
+}
+
+handleNameSubmit(e) {
+  e.preventDefault(); //stops page from rerendering
+  this.roomListRef.child('rooms').push({ name: this.state.title });
   this.setState({ title: ''});
 }
 
@@ -37,8 +42,11 @@ handleChange(e) {
   this.setState({ title: e.target.value })
 }
 
+handleNameChange(e) {
+  this.setState({ title: e.target.value })
+}
+
 activeRoom(index) {
-  console.log("");
   this.props.sendRoom({ roomName: this.state.rooms[index].name,
                         roomKey: this.state.keys[index]})
 }
@@ -61,7 +69,8 @@ editRoom(index, name, form){
     {
       this.roomstate = name;
     }
-
+    this.props.sendRoom({ roomName: this.state.rooms[index].name,
+                          roomKey: this.state.keys[index]})
   console.log(this.state.rooms[index].name);
 }
 
@@ -87,9 +96,9 @@ displayEdit(name, form){
   render() {
 
 const form =
-  <form className="NewTodoForm" onSubmit={ (e) => this.handleSubmit(e) }>
-    <input type="text" value={this.state.title}  onChange={ (e) => this.handleChange(e) } />
-    <input type="submit"/>
+  <form className="ChangeNameForm" onSubmit={ (e) => this.handleNameSubmit(e) }>
+    <input type="text" value={this.state.title}  onChange={ (e) => this.handleNameChange(e) } />
+    <input value="Submit New Name" type="submit"/>
   </form>
 
 const displayRooms = this.state.rooms.map((name, index) => {
@@ -110,7 +119,7 @@ const displayRooms = this.state.rooms.map((name, index) => {
               {displayRooms}
             </ul>
           </div>
-          <form className="NewTodoForm" onSubmit={ (e) => this.handleSubmit(e) }>
+          <form className="NewRoomForm" onSubmit={ (e) => this.handleSubmit(e) }>
             <input type="text" value={this.state.title}  onChange={ (e) => this.handleChange(e) } />
             <input type="submit"/>
           </form>
