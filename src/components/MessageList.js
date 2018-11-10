@@ -45,6 +45,10 @@ handleChange(e) {
   this.setState({ message: e.target.value })
 }
 
+deleteMessages(index) {
+  console.log("test")
+}
+
 componentWillUnmount() {
   this.firebaseRef.off();
 }
@@ -57,8 +61,8 @@ componentWillUnmount() {
           return (
             <li key={index}>
             {message.content}
-            <p>- {message.username}<button className="delete-messages">x</button></p>
-          
+            <p>- {message.username}<button className="delete-messages" onClick={() => this.deleteMessages(index)}>x</button></p>
+
             </li>
           )
         }
@@ -71,7 +75,7 @@ componentWillUnmount() {
           <div className="Message-Container">
             <ul>
             {displayMessages}
-a            </ul>
+            </ul>
           </div>
 
           <form className="Message-Submit" onSubmit={ (e) => this.handleSubmit(e) }>
