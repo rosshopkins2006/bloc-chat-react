@@ -9,6 +9,7 @@ class RoomList extends Component {
         keys: [],
         rooms: [],
         title: '',
+        titleSave: '',
         activeRoom: ''
       };
 
@@ -34,8 +35,8 @@ handleSubmit(e) {
 }
 
 handleNameSubmit(a, index) {
-  this.roomListRef.child('rooms').child(this.state.keys[index]).update({ name: this.state.title });
-  this.setState({ title: ''});
+  this.roomListRef.child('rooms').child(this.state.keys[index]).update({ name: this.state.titleSave });
+  this.setState({ titleSave: ''});
 }
 
 handleChange(e) {
@@ -43,7 +44,7 @@ handleChange(e) {
 }
 
 handleNameChange(a) {
-  this.setState({ title: a.target.value })
+  this.setState({ titleSave: a.target.value })
 }
 
 activeRoom(index) {
@@ -119,7 +120,7 @@ const displayRooms = this.state.rooms.map((name, index) => {
 
   var form =
     <form className="ChangeNameForm" onSubmit={ (a) => this.handleNameSubmit(a, indexVar) }>
-      <input type="text" value={this.state.title}  onChange={ (a) => this.handleNameChange(a) } />
+      <input type="text" onChange={ (a) => this.handleNameChange(a) } />
       <input value="Submit New Name" type="submit"/>
     </form>
 
