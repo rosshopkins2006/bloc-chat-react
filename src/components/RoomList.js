@@ -33,9 +33,8 @@ handleSubmit(e) {
   this.setState({ title: ''});
 }
 
-handleNameSubmit(e) {
-  e.preventDefault(); //stops page from rerendering
-  this.roomListRef.child('rooms').push({ name: this.state.title });
+handleNameSubmit(a, index) {
+  this.roomListRef.child('rooms').child(this.state.keys[index]).update({ name: this.state.title });
   this.setState({ title: ''});
 }
 
@@ -43,8 +42,8 @@ handleChange(e) {
   this.setState({ title: e.target.value })
 }
 
-handleNameChange(e) {
-  this.setState({ title: e.target.value })
+handleNameChange(a) {
+  this.setState({ title: a.target.value })
 }
 
 activeRoom(index) {
@@ -60,6 +59,7 @@ deleteRoom(index){
 }
 
 editRoom(index, name, form){
+
     this.editToggle = !this.editToggle;
 
     if(this.saveBool === false){
@@ -111,13 +111,17 @@ componentWillUnmount() {
 
   render() {
 
-const form =
-  <form className="ChangeNameForm" onSubmit={ (e) => this.handleNameSubmit(e) }>
-    <input type="text" value={this.state.title}  onChange={ (e) => this.handleNameChange(e) } />
-    <input value="Submit New Name" type="submit"/>
-  </form>
+
 
 const displayRooms = this.state.rooms.map((name, index) => {
+
+  var indexVar = index;
+
+  var form =
+    <form className="ChangeNameForm" onSubmit={ (a) => this.handleNameSubmit(a, indexVar) }>
+      <input type="text" value={this.state.title}  onChange={ (a) => this.handleNameChange(a) } />
+      <input value="Submit New Name" type="submit"/>
+    </form>
 
   return (
     <li key={index}>
