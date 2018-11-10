@@ -46,7 +46,8 @@ handleChange(e) {
 }
 
 deleteMessages(index) {
-  console.log("test")
+  //this.messagesRef.child('messages').child(this.state.messages[index]).key.remove();
+  console.log(this.state.messages[index].key)
 }
 
 componentWillUnmount() {
