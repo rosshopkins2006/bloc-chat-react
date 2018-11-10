@@ -14,7 +14,8 @@ class RoomList extends Component {
 
       this.roomListRef= this.props.firebase.database().ref();
       this.editToggle = false;
-      this.roomState = '';
+      this.saveName = 'test';
+      this.saveBool = false;
     }
 
 componentDidMount() {
@@ -52,7 +53,7 @@ activeRoom(index) {
 }
 
 deleteRoom(index){
-  if(this.state.sendKeyState != 'no key given'){
+  if(this.state.sendKeyState !== 'no key given'){
     this.roomListRef.child('rooms').child(this.state.keys[index]).remove();
   }
   window.location.reload();
@@ -61,37 +62,52 @@ deleteRoom(index){
 editRoom(index, name, form){
     this.editToggle = !this.editToggle;
 
-    if(this.editToggle==true)
-    {
-      this.roomstate = form;
+    if(this.saveBool === false){
+      this.saveName = name;
     }
-    else
+
+    console.log(this.saveName);
+
+    if(this.editToggle===true)
     {
-      this.roomstate = name;
+
+        let newState = Object.assign({}, this.state);
+        newState.rooms[index].name = form;
+        this.setState(newState);
+
+        this.saveBool = true;
+
+        this.forceUpdate()
+
+    }
+
+    if(this.editToggle === false)
+    {
+      this.state.rooms[index].name = this.saveName;
     }
     this.props.sendRoom({ roomName: this.state.rooms[index].name,
                           roomKey: this.state.keys[index]})
-  console.log(this.state.rooms[index].name);
+
+}
+
+displayEdit(index, name, form){
+  if(this.editToggle==true)
+  {
+    return(this.state.rooms[index].name);
+  }
+  else
+  {
+
+    return(this.state.rooms[index].name);
+    console.log("test")
+  }
 }
 
 componentWillUnmount() {
   this.firebaseRef.off();
 }
 
-toggleRoomDisplay(e){
 
-}
-
-displayEdit(name, form){
-  if(this.editToggle==true)
-  {
-    return(form);
-  }
-  else
-  {
-    return(name);
-  }
-}
 
   render() {
 
@@ -102,9 +118,10 @@ const form =
   </form>
 
 const displayRooms = this.state.rooms.map((name, index) => {
+
   return (
     <li key={index}>
-      <button onClick={ () => this.activeRoom(index) }>{this.displayEdit(name.name , form)}</button>
+      <button onClick={ () => this.activeRoom(index) }>{this.displayEdit(index, name.name , form)}</button>
       <button className="delete-room" onClick={() => this.deleteRoom(index)}>x</button>
       <button className="edit-room" onClick={() => this.editRoom(index, name.name, form)}>edit</button>
     </li>
