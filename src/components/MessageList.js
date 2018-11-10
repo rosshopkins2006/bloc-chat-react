@@ -57,8 +57,8 @@ componentWillUnmount() {
           return (
             <li key={index}>
             {message.content}
-            <p>- {message.username}</p>
-
+            <p>- {message.username}<button className="delete-messages">x</button></p>
+          
             </li>
           )
         }
@@ -71,7 +71,7 @@ componentWillUnmount() {
           <div className="Message-Container">
             <ul>
             {displayMessages}
-            </ul>
+a            </ul>
           </div>
 
           <form className="Message-Submit" onSubmit={ (e) => this.handleSubmit(e) }>
