@@ -55,13 +55,9 @@ deleteMessages(index) {
   window.location.reload();
 }
 
-deleteRoom(index){
-  if(this.state.sendKeyState !== 'no key given'){
-    this.roomListRef.child('rooms').child(this.state.keys[index]).remove();
-  }
-  window.location.reload();
+editMessages(){
+  console.log('test');
 }
-
 
 componentWillUnmount() {
   this.firebaseRef.off();
@@ -74,7 +70,7 @@ componentWillUnmount() {
         {
           return (
             <li key={index}>
-            {message.content}
+            {message.content}<button className="delete-messages" onClick={() => this.editMessages(index)}>Edit</button>
             <p>- {message.username}<button className="delete-messages" onClick={() => this.deleteMessages(index)}>x</button></p>
 
             </li>
