@@ -15,7 +15,7 @@ class App extends Component {
       user: ''
     }
 
-    this.firebaseRef = firebase
+    this.firebaseRef = firebase;
     this.room = this.room;
   }
 

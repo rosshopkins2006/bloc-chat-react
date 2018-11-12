@@ -1,41 +1,44 @@
 
 import React, { Component } from 'react';
-import * as firebase from 'firebase';
+
 
 class MessageList extends Component {
 
   constructor(props) {
     super(props);
       this.state = {
+        keys:[],
         messages: [],
         message: '',
-        username: 'jen',
+        username: '',
         content: '',
         sentAt: '',
         roomID: ''
       };
 
-      this.messagesRef = this.props.firebase.database().ref().child('messages');
+      this.messagesRef = this.props.firebase.database().ref();
     }
 
 componentDidMount() {
-  this.messagesRef.on('child_added', snapshot => {
+  this.messagesRef.child('messages').on('child_added', snapshot => {
   const messageConst = snapshot.val();
   messageConst.key = snapshot.key;
+  this.setState({ keys: this.state.keys.concat( messageConst.key ) })
   this.setState({ messages: this.state.messages.concat( messageConst ) })
   });
 }
 
 handleSubmit(e) {
+  console.log(this.messagesRef)
   this.setState({ message: ''});
   this.setState({ username: this.props.userName });
   this.setState({ content: this.state.message, });
   this.setState({ sentAt: '2025', });
   this.setState({ roomID: this.props.sendKey });
-  firebase.database().ref().child('messages').push({
+  this.messagesRef.child('messages').push({
             username: this.props.userName,
             content: this.state.message,
-            sentAt: firebase.database.ServerValue.TIMESTAMP,
+            sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
             roomID: this.props.sendKey
           });
   e.preventDefault(); //stops page from rerendering
@@ -46,9 +49,19 @@ handleChange(e) {
 }
 
 deleteMessages(index) {
-  //this.messagesRef.child('messages').child(this.state.messages[index]).key.remove();
-  console.log(this.state.messages[index].key)
+  if(this.state.keys !== "No Key Given")
+  this.messagesRef.child('messages').child(this.state.keys[index]).remove();
+  console.log(this.state.keys[index])
+  window.location.reload();
 }
+
+deleteRoom(index){
+  if(this.state.sendKeyState !== 'no key given'){
+    this.roomListRef.child('rooms').child(this.state.keys[index]).remove();
+  }
+  window.location.reload();
+}
+
 
 componentWillUnmount() {
   this.firebaseRef.off();

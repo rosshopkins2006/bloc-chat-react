@@ -53,9 +53,9 @@ activeRoom(index) {
 }
 
 deleteRoom(index){
-  if(this.state.sendKeyState !== 'no key given'){
+
     this.roomListRef.child('rooms').child(this.state.keys[index]).remove();
-  }
+
   window.location.reload();
 }
 
@@ -66,8 +66,6 @@ editRoom(index, name, form){
     if(this.saveBool === false){
       this.saveName = name;
     }
-
-    console.log(this.saveName);
 
     if(this.editToggle===true)
     {
@@ -84,15 +82,19 @@ editRoom(index, name, form){
 
     if(this.editToggle === false)
     {
-      this.state.rooms[index].name = this.saveName;
-    }
+      let newState = Object.assign({}, this.state);
+      newState.rooms[index].name = this.saveName;
+      this.setState(newState);
+      this.forceUpdate()
+      }
+
     this.props.sendRoom({ roomName: this.state.rooms[index].name,
                           roomKey: this.state.keys[index]})
 
 }
 
 displayEdit(index, name, form){
-  if(this.editToggle==true)
+  if(this.editToggle === true)
   {
     return(this.state.rooms[index].name);
   }
