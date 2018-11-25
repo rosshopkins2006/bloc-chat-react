@@ -3,6 +3,7 @@ import RoomList from './components/RoomList';
 import MessageList from "./components/MessageList";
 import User from "./components/User";
 import * as firebase from 'firebase';
+import * as admin from 'firebase-admin';
 
 import './App.css';
 

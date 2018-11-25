@@ -20,6 +20,10 @@ SignOutUser(){
   this.props.firebase.auth().signOut();
 }
 
+SignInAdministrator(){
+  
+}
+
   render(){
 
 
@@ -30,6 +34,7 @@ SignOutUser(){
           <div className="User">
             <button onClick={() => this.SignInUser()}>Sign In With Google</button>
             <button onClick={() => this.SignOutUser()}>Sign Out</button>
+            <button onClick={() => this.SignInAdministrator()}>Admin Sign in</button>
           </div>
         </div>
       </section>
