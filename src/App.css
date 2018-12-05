@@ -1,25 +1,10 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
+  background-image: linear-gradient(to bottom right, RoyalBlue, purple);
+  box-shadow: 1px 1px 150px Blue;
+  color: Yellow;
+  -webkit-text-stroke: 0.5px Black;
+  font-size: 20px;
 }
 
 @keyframes App-logo-spin {
@@ -33,11 +18,8 @@
 
 .App-Container {
   display: flex;
-  right: auto;
-  width: 100%;
-  margin-right: auto;
-
-  background-color: LightGrey;
+  width: 100vw;
+  background-image: linear-gradient(to bottom right, blue, Purple);
   padding: 50 px;
 }
 
@@ -45,41 +27,56 @@
   display: flex;
   width: 100%;
   justify-content: flex-start;
-  box-shadow: 1px 1px 5px Black;
-  background-color: Grey;
-  padding: 50 px;
+  background-color: RoyalBlue;
 }
 
 .Message-Container {
   display: flex;
-  right: auto;
   width: 100%;
-  margin-right: auto;
-  box-shadow: 1px 1px 5px Black;
-  background-color: PowderBlue;
-  padding: 50 px;
+  box-shadow: 1px 1px 150px Blue;
+  background-color: white;
+  color: black;
+  padding: 20px;
 }
-
+.CheckboxContainer{
+  display: flex;
+  bottom: 100%;
+  width: 100%;
+  height: 25%;
+  margin-right: auto;
+  box-shadow: 1px 1px 150px Yellow;
+  background-image: linear-gradient(to bottom right, blue, orange);
+  padding: 20px;
+}
+.Checkbox{
+  display: flex;
+  bottom: 100%;
+  width: 100%;
+  height: 25%;
+  margin-right: auto;
+  background-color: RoyalBlue;
+  padding: 20px;
+}
 .User-Container{
   display: flex;
-  right: auto;
-  width: 100%;
-  margin-right: auto;
-
-  background-color: LightGrey;
+  width: auto;
+  box-shadow: 1px 1px 250px Blue;
+  background-image: linear-gradient(to bottom right, Magenta, RoyalBlue);
   padding: 50 px;
 }
 
 h1 {
   margin: 0;
   padding: 0;
+  background-image: linear-gradient(to bottom right, blue, purple);
 }
 html, body, .app {
   margin: 0;
   padding: 0;
   position: relative;
-  width: 100%;
-  height: 100vh;
+  width: auto;
+  height: auto;
+  background-image: linear-gradient(to bottom right, Blue, Purple);
 }
 .popup {
   position: fixed;
@@ -90,7 +87,7 @@ html, body, .app {
   right: 0;
   bottom: 0;
   margin: auto;
-  background-color: rgba(0,0,0, 0.5);
+  background-image: linear-gradient(to bottom right, RoyalBlue, Magenta);
 }
 .popup_inner {
   position: absolute;
@@ -99,5 +96,23 @@ html, body, .app {
   top: 25%;
   bottom: 25%;
   margin: auto;
-  background: white;
+  background-image: linear-gradient(to bottom right, RoyalBlue, Purple);
+}
+
+.ChangeNameForm{
+  background-color: RoyalBlue;
+}
+
+.MessageSubmit{
+  width: 100%;
+  padding: 20px;
+  background-color: RoyalBlue;
+}
+.LandingStuff{
+display: flex;
+width: auto;
+}
+.Rooms{
+  padding-left: 20px;
+  background: RoyalBlue;
 }

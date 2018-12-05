@@ -16,6 +16,7 @@ class MessageList extends Component {
         sentAt: '',
         roomID: ''
       };
+      this.isTyping = false;
       this.saveBool = false;
       this.saveMessage = 'test';
       this.editToggle = false;
@@ -34,16 +35,30 @@ componentDidMount() {
 handleSubmit(e) {
   console.log(this.messagesRef)
   this.setState({ message: ''});
-  this.setState({ username: this.props.userName });
   this.setState({ content: this.state.message, });
   this.setState({ sentAt: '2025', });
   this.setState({ roomID: this.props.sendKey });
-  this.messagesRef.child('messages').push({
-            username: this.props.userName,
-            content: this.state.message,
-            sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-            roomID: this.props.sendKey
-          });
+
+  if(this.props.sendStatus){
+      this.setState({ username: "Admin" });
+      this.messagesRef.child('messages').push({
+                username: "Admin",
+                content: this.state.message,
+                sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+                roomID: this.props.sendKey
+              });
+  }
+  else if(!this.props.sendStatus){
+      this.setState({ username: this.props.userName });
+      this.messagesRef.child('messages').push({
+                username: this.props.userName,
+                content: this.state.message,
+                sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+                roomID: this.props.sendKey
+              });
+  }
+
+
   e.preventDefault(); //stops page from rerendering
 }
 
@@ -55,10 +70,14 @@ handleMessageSubmit(a, index) {
 
 handleChange(e) {
   this.setState({ message: e.target.value })
+  this.isTyping = true;
+  console.log(this.isTyping);
 }
 
 handleMessageChange(a) {
   this.setState({ messageSave: a.target.value })
+  this.isTyping = true;
+  console.log(this.isTyping);
 }
 
 deleteMessages(index) {
@@ -107,16 +126,26 @@ displayEdit(index, name, form){
   {
 
     return(this.state.messages[index].content);
-    console.log("test")
   }
+}
+
+detectAdmin() {
+  console.log(this.props.sendStatus);
 }
 
 componentWillUnmount() {
   this.firebaseRef.off();
 }
-
+isTypingFunction(){
+  if(this.state.message !== "")
+  {
+    return <li>{this.props.userName} is typing...</li>
+  }
+  else if(this.state.message === ""){
+    return null;
+  }
+}
   render() {
-
 
     const displayMessages = this.state.messages.map((message, index) => {
 
@@ -139,7 +168,11 @@ componentWillUnmount() {
             </li>
           )
         }
-    })
+    });
+
+    const isTypingConst = {
+
+    }
 
   return(
     <section>
@@ -148,10 +181,11 @@ componentWillUnmount() {
           <div className="Message-Container">
             <ul>
             {displayMessages}
+            {this.isTypingFunction()}
             </ul>
           </div>
 
-          <form className="Message-Submit" onSubmit={ (e) => this.handleSubmit(e) }>
+          <form className="MessageSubmit" onSubmit={ (e) => this.handleSubmit(e) }>
           message
             <input type="text" value={this.state.message}  onChange={ (e) => this.handleChange(e) } />
             <input type="submit"/>
